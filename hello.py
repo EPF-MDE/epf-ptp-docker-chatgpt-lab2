@@ -22,4 +22,21 @@ def chatgpt():
     )
     return completion['choices'][0]['message']['content']
 
+@app.route('/codegen', methods=['POST'])
+def generate_code():
+    data = request.get_json()
+    language = data['language']
+    content = data['content']
+    completion = openai.Completion.create(
+        model="gpt-3.5-turbo",
+        prompt=f"Generate code in {language} programming language: {content}",
+        temperature=0.5,
+        max_tokens=512,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    return completion['choices'][0]['text']
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
