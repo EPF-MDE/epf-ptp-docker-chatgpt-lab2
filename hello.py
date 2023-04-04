@@ -3,7 +3,7 @@ import os
 import openai
 
 app = Flask(__name__)
-
+#e
 openai.api_key = os.environ.get('OPENAI_KEY')
 
 
